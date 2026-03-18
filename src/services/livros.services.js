@@ -19,5 +19,19 @@ const acervo = [
         autor: 'Richard K. Morgan',
         ano: 2002,
         disponivel: false
-    }
-]
+    },
+];
+
+const listarTodosLivros = async() => {
+    return acervo;
+};
+
+const buscarLivroPorId = async id => {
+    const livro = acervo.find(livro => livro.id === Number(id));
+    return livro || null;
+};
+
+module.exports = {
+    listarTodosLivros,
+    buscarLivroPorId
+};

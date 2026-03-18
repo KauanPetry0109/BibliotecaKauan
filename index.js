@@ -1,46 +1,19 @@
-const http = require('http');
+const express = require('express');
+const livrosRoutes = require('./src/routes/livros.routes');
 
-console.log("[SISTEMA]: Iniciando servidor ...");
+const app = express();
 
-const server = http.createServer((req, res) => {
-    console.log(`[REQUEST]: ${req.method} ${req.url}`);
+app.use(express.json());
+app.use('/livros', livrosRoutes);
 
-    if (req.url === '/livros' && req.method === 'GET') {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(
-            JSON.stringify({
-                status: 'Sucesso',
-                acervo: [
-                    'O Senhor dos Anéis',
-                    "Assassin's Creed",
-                    'Altered Carbon',
-                    'Albion Online'
-                ],
-                total: 4,
-            })
-        );
-    }
-
-    if (req.url === '/' && req.method === 'GET') {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(
-            JSON.stringify({
-                mensagem: 'Seja bem-vindo a biblioteca',
-                instrucao: 'Acesse /livros para ver o acervo',
-            })
-        );
-    }
-
-    res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(
-        JSON.stringify({
-            erro: 'Rota não encontrada'
-        })
-    );
+app.get('/', (req, res) => {
+    res.json({
+        sistema: 'Biblioteca M4',
+        status: 'online',
+    });
 });
 
 const PORT = 3000;
-
-server.listen(PORT, () => {
-    console.log(`[SERVIDOR]: Rodando em http://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
