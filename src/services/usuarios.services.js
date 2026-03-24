@@ -4,7 +4,7 @@ const usuarios = [
     { id: 3, nome: "Pedro", email: "pedro@example.com", senha: "123456" }
 ]
 
-const listarTodosUsuarios = async() => {
+const listarUsuarios = async() => {
     return usuarios;
 }
 
@@ -28,7 +28,7 @@ const criarUsuario = async ({ nome, email }) => {
 };
 
 module.exports = {
-    listarTodosUsuarios,
+    listarUsuarios,
     buscarUsuarioPorId,
     criarUsuario
 }
