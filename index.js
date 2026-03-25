@@ -1,12 +1,17 @@
 const express = require('express');
-const livrosRoutes = require('./src/routes/livros.routes');
-const usuariosRoutes = require('./src/routes/usuarios.routes');
-
 const app = express();
+const routes = require('./src/routes/index.routes');
 
 app.use(express.json());
-app.use('/livros', livrosRoutes);
-app.use('/usuarios', usuariosRoutes);
+
+
+app.use('/', routes);
+
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next()
+}
+);
 
 app.get('/', (req, res) => {
     res.json({
