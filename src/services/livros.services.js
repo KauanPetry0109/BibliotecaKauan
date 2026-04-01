@@ -31,7 +31,21 @@ const buscarLivroPorId = async id => {
     return livro || null;
 };
 
+const criarLivro = async (titulo, autor, ano) => {
+    const novoLivro = {
+        id: acervo.length + 1,
+        titulo,
+        autor,
+        ano,
+        disponivel: true
+    };
+
+    acervo.push(novoLivro);
+    return novoLivro;
+};
+
 module.exports = {
     listarTodosLivros,
-    buscarLivroPorId
+    buscarLivroPorId,
+    criarLivro
 };
