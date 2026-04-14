@@ -1,4 +1,4 @@
-const CHAVE_ACESSO = 'biblioteca_kauan';
+const CHAVE_ACESSO = 'bibliotecaKauan';
 
 const autenticar = (req, res, next) => {
     const autHeader = req.headers['authorization'];
