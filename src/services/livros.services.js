@@ -20,16 +20,17 @@ const buscarLivroPorId = async id => {
     }
 };
 
-const criarLivro = async (titulo, autor, isbn, ano_publicacao) => {
+const criarLivro = async (titulo, autor, isbn, ano_publicacao, categoria_id) => {
     try {
-        const query = `INSERT INTO livros (titulo, autor, isbn, ano_publicacao)
-                       VALUES ($1, $2, $3, $4) RETURNING *`;
-        const values = [titulo, autor, isbn, ano_publicacao];
+        const query = `INSERT INTO livros (titulo, autor, isbn, ano_publicacao, categoria_id)
+                       VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+        const values = [titulo, autor, isbn, ano_publicacao, categoria_id];
         const result = await pool.query(query, [
             titulo,
             autor,
             isbn,
             ano_publicacao,
+            categoria_id
         ]);
         return result.rows[0];
     } catch (error) {
