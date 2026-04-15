@@ -20,17 +20,22 @@ const buscarLivroPorId = async id => {
     }
 };
 
-const criarLivro = async (titulo, autor, ano) => {
-    const novoLivro = {
-        id: acervo.length + 1,
-        titulo,
-        autor,
-        ano,
-        disponivel: true
-    };
-
-    acervo.push(novoLivro);
-    return novoLivro;
+const criarLivro = async (titulo, autor, isbn, ano_publicacao) => {
+    try {
+        const query = `INSERT INTO livros (titulo, autor, isbn, ano_publicacao)
+                       VALUES ($1, $2, $3, $4) RETURNING *`;
+        const values = [titulo, autor, isbn, ano_publicacao];
+        const result = await pool.query(query, [
+            titulo,
+            autor,
+            isbn,
+            ano_publicacao,
+        ]);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Erro ao criar livro:', error);
+        throw error;
+    }
 };
 
 module.exports = {
